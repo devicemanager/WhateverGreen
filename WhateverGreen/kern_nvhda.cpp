@@ -20,7 +20,7 @@
 // References:
 // https://bugs.freedesktop.org/show_bug.cgi?id=75985
 // https://devtalk.nvidia.com/default/topic/1024022/linux/gtx-1060-no-audio-over-hdmi-only-hda-intel-detected-azalia/
-// https://github.com/acidanthera/bugtracker/issues/292
+// https://github.com/devicemanager/bugtracker/issues/292
 
 OSDefineMetaClassAndStructors(NVHDAEnabler, IOService);
 

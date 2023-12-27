@@ -13,7 +13,7 @@ The general concept of enabling Intel graphics cards:
 3. Specify the correct framebuffer (`AAPL,ig-platform-id` or `AAPL,snb-platform-id`) describing available outputs and other properties of the video card.  
 4. Add some other additional properties to devices related to Intel® HD Graphics аnd for digital audio.  
   
-At this point, paragraphs 1 and 4 are automated by [WhateverGreen](https://github.com/acidanthera/WhateverGreen) and [AppleALC](https://github.com/acidanthera/AppleALC). It works in OS X 10.6 and later, and greatly simplifies graphics enabling in macOS.  
+At this point, paragraphs 1 and 4 are automated by [WhateverGreen](https://github.com/devicemanager/WhateverGreen) and [AppleALC](https://github.com/devicemanager/AppleALC). It works in OS X 10.6 and later, and greatly simplifies graphics enabling in macOS.  
   
 ## General recommendations  
 
@@ -21,7 +21,7 @@ At this point, paragraphs 1 and 4 are automated by [WhateverGreen](https://githu
 For the total amount of memory DVMT (DVMT Total) select: MAX.  
 ![Bios](./Img/bios.png)  
 Some faulty BIOSes show a higher value, but actually allocate less. In such cases select a value a step higher. This is common with Dell laptops, their BIOS reports 64MB, but actually allocates 32MB and there is no way to change it. Such case will be shown in this manual.
-2. Add [Lilu.kext](https://github.com/vit9696/Lilu/releases) and [WhateverGreen.kext](https://github.com/acidanthera/WhateverGreen/releases)(hereinafter referred to as the **WEG**) to bootloader Clover or OpenCore.
+2. Add [Lilu.kext](https://github.com/vit9696/Lilu/releases) and [WhateverGreen.kext](https://github.com/devicemanager/WhateverGreen/releases)(hereinafter referred to as the **WEG**) to bootloader Clover or OpenCore.
 3. Remove (if used previously) these kexts:  
 — IntelGraphicsFixup.kext  
 — NvidiaGraphicsFixup.kext  
@@ -60,7 +60,7 @@ Only these properties may be added:
 — `device-id` for `IGPU` (if faking is necessary)  
 — `device-id` for `IMEI` (if faking is necessary)  
 — properties for patches (if necessary)  
-And `layout-id` for `HDEF` (More detail in [AppleALC Wiki](https://github.com/acidanthera/AppleALC/wiki/Installation-and-usage), `HDEF` device locations `PciRoot`, [gfxutil](https://github.com/acidanthera/gfxutil) may be used: `gfxutil -f HDEF`).  
+And `layout-id` for `HDEF` (More detail in [AppleALC Wiki](https://github.com/devicemanager/AppleALC/wiki/Installation-and-usage), `HDEF` device locations `PciRoot`, [gfxutil](https://github.com/devicemanager/gfxutil) may be used: `gfxutil -f HDEF`).  
   
 Adding these is not mandatory. An example: the default framebuffer is good enough or it is set with a boot argument (boot-arg), and faking the `device-id` is not required.  
 The bytes in `Properties` must be put in reversed order. For example: framebuffer `0x0166000B` would be put in as `0B006601`, DevID `0x1E3A` would be put in as `3A1E0000`.  
@@ -265,7 +265,7 @@ Desktops require a fake `device-id` `26010000` for `IGPU`:
 
 For an "empty framebuffer" a different device-id is required, more in this [thread](https://www.applelife.ru/threads/zavod-intel-quick-sync-video.817923/)
   
->**Attention!** If you are using a motherboard with a [7 series](https://ark.intel.com/products/series/98460/Intel-7-Series-Chipsets) chipset, it is necessary to fake the `device-id` `3A1C0000` for `IMEI` and add ACPI table [SSDT-IMEI](https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/AcpiSamples/Source/SSDT-IMEI.dsl)  
+>**Attention!** If you are using a motherboard with a [7 series](https://ark.intel.com/products/series/98460/Intel-7-Series-Chipsets) chipset, it is necessary to fake the `device-id` `3A1C0000` for `IMEI` and add ACPI table [SSDT-IMEI](https://github.com/devicemanager/OpenCorePkg/blob/master/Docs/AcpiSamples/Source/SSDT-IMEI.dsl)  
 ![snv_imei](./Img/snb_imei.png)  
 
 ## Intel HD Graphics 2500/4000 ([Ivy Bridge](https://en.wikipedia.org/wiki/Ivy_Bridge_(microarchitecture)) processors)  
@@ -434,7 +434,7 @@ Mobile: 0, PipeCount: 2, PortCount: 3, FBMemoryCount: 2
 
 HD2500 doesn't work as a full-featured graphics card in macOS, but you can (and should) use it with an "empty framebuffer" (0 connectors) for [IQSV](https://www.applelife.ru/threads/zavod-intel-quick-sync-video.817923/). Only the HD4000 can work with a display.  
 
->***Attention!*** If you are using a motherboard with a  [6-series](https://ark.intel.com/products/series/98461/Intel-6-Series-Chipsets) chipset, it is necessary to fake the `device-id` `3A1E0000` for `IMEI` and add ACPI table [SSDT-IMEI](https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/AcpiSamples/Source/SSDT-IMEI.dsl)  
+>***Attention!*** If you are using a motherboard with a  [6-series](https://ark.intel.com/products/series/98461/Intel-6-Series-Chipsets) chipset, it is necessary to fake the `device-id` `3A1E0000` for `IMEI` and add ACPI table [SSDT-IMEI](https://github.com/devicemanager/OpenCorePkg/blob/master/Docs/AcpiSamples/Source/SSDT-IMEI.dsl)  
 ![ivy_imei](./Img/ivy_imei.png)  
 
 ## Intel HD Graphics 4200-5200 ([Haswell](https://en.wikipedia.org/wiki/Haswell_(microarchitecture)) processors)  
@@ -740,7 +740,7 @@ Mobile: 1, PipeCount: 3, PortCount: 1, FBMemoryCount: 1
   - `0x04120004` (default)
   
 For desktop HD4400 and mobile HD4200/HD4400/HD4600 need fake the `device-id` `12040000` for `IGPU`.  
-![](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/Img/hsw_igpu.png)  
+![](https://github.com/devicemanager/WhateverGreen/blob/master/Manual/Img/hsw_igpu.png)  
 
 
 ## Intel HD Graphics 5300-6300 ([Broadwell](https://en.wikipedia.org/wiki/Broadwell_(microarchitecture)) processors)  
@@ -1050,7 +1050,7 @@ Mobile: 0, PipeCount: 2, PortCount: 2, FBMemoryCount: 2
 
 Make sure that WhateverGreen v1.6.0 or above is used. Then, it is necessary to fake `device-id` and choose an `ig-platform-id` from Kaby Lake that is closest to the Skylake model (e.g. HD 530 to HD 630). In case of incompatibility, try a different `device-id` and the corresponding `ig-platform-id`. Experiments are the best practice to figure out which ID will best fit.
 
-In addition to using the latest version of WhateverGreen, `AAPL,GfxYTile` with value `01000000` may be injected together with `ig-platform-id` to avoid glitches. For more details, please refer to [acidanthera/bugtracker#483](https://github.com/acidanthera/bugtracker/issues/2088#issuecomment-1381357651).
+In addition to using the latest version of WhateverGreen, `AAPL,GfxYTile` with value `01000000` may be injected together with `ig-platform-id` to avoid glitches. For more details, please refer to [devicemanager/bugtracker#483](https://github.com/devicemanager/bugtracker/issues/2088#issuecomment-1381357651).
 
 ***SKL framebuffer list:***
 
@@ -2276,19 +2276,19 @@ Note, that without AAPL,ig-platform-id the following SIMULATOR ID is assumed: FF
 
 ## Adjusting the brightness on a laptop
 
-Use this ACPI table [SSDT-PNLF](https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/AcpiSamples/Source/SSDT-PNLF.dsl)  
-Table SSDT-PNLFCFL is deprecated, use updated table [SSDT-PNLF](https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/AcpiSamples/Source/SSDT-PNLF.dsl) from OpenCore 0.7.3+ for any Intel HD Graphics.  
+Use this ACPI table [SSDT-PNLF](https://github.com/devicemanager/OpenCorePkg/blob/master/Docs/AcpiSamples/Source/SSDT-PNLF.dsl)  
+Table SSDT-PNLFCFL is deprecated, use updated table [SSDT-PNLF](https://github.com/devicemanager/OpenCorePkg/blob/master/Docs/AcpiSamples/Source/SSDT-PNLF.dsl) from OpenCore 0.7.3+ for any Intel HD Graphics.  
   
 Certain mobile Kaby Lake, Coffee Lake and Ice Lake devices need fixing of the backlight registers. 
 Without the fix certain devices will end in a black screen when booting macOS, like seen on the Dell inspiron 3593. 
 The WhateverGreen backlight registers fix can be enabled using `enable-backlight-registers-fix` property to `IGPU` or using the `-igfxblr` boot argument.  
   
-For laptop brightness keys use [BrightnessKeys.kext](https://github.com/acidanthera/BrightnessKeys).  
+For laptop brightness keys use [BrightnessKeys.kext](https://github.com/devicemanager/BrightnessKeys).  
   
 ## Digital Audio (HDMI / DVI / DP)
 
 To enable digital audio it is necessary to set the `hda-gfx` properties and patches the connectors.  
-To enable audio in general and HDMI in particular use *WEG* along with [AppleALC.kext](https://github.com/acidanthera/AppleALC). AppleALC automatically injects missing `hda-gfx` properties.  
+To enable audio in general and HDMI in particular use *WEG* along with [AppleALC.kext](https://github.com/devicemanager/AppleALC). AppleALC automatically injects missing `hda-gfx` properties.  
 On 10.10.5 and above, *WEG* automatically changes the `connector-type` of DP (00040000) to HDMI (00080000), only if not used **Custom patching**. Physical connection may be of any type (HDMI, DVI, DP), but for the digital audio `connector-type` must explicitly be HDMI.
 
 ## Custom Patching
@@ -2722,7 +2722,7 @@ Starting from v1.5.5, the default delay is changed to 1 second, so in most cases
 - In macOS 10.14 оn some laptops with KBL graphics one may face visual artifacts on the gradients. In certain cases can help `AAPL,GfxYTile` with value `01000000` or for a temporary solution try to fake IGPU to use SKL drivers.  
 - The several minutes black screen upon OS boot with mobile CFL is fixed by *WEG*.  
 - The absence in BIOS of an option to change the amount of memory for the frame buffer is resolved with either semantic `framebuffer-stolenmem` and `framebuffer-fbmem` patches, by modifying the BIOS or by manually inputting the values in UEFI Shell. **Otherwise you get a panic.** [Explanation](https://www.applelife.ru/posts/750369)  
-- Some systems with IGPUs (e.g. KBL and CFL) may cause system instability in lower power states. Sometimes it can be noticed by NVMe kernel panics. The generally available workaround is passing `forceRenderStandby=0` to kernel boot arguments to disable RC6 Render Standby. See [this issue](https://github.com/acidanthera/bugtracker/issues/1193) for more details.
+- Some systems with IGPUs (e.g. KBL and CFL) may cause system instability in lower power states. Sometimes it can be noticed by NVMe kernel panics. The generally available workaround is passing `forceRenderStandby=0` to kernel boot arguments to disable RC6 Render Standby. See [this issue](https://github.com/devicemanager/bugtracker/issues/1193) for more details.
   
 **Performance and media content**
 
@@ -2737,7 +2737,7 @@ A [VDADecoderChecker](https://i.applelife.ru/2019/05/451893_10.12_VDADecoderChec
 ![vda2](./Img/vda2.png)  
 [Note for 10.15+](https://www.applelife.ru/posts/765336)  
   
-In case of special IGPU, IMEI and HDEF device locations, [gfxutil](https://github.com/acidanthera/gfxutil) may be used: `gfxutil -f IGPU`, `gfxutil -f IMEI`, `gfxutil -f HDEF`. IGPU and IMEI device locations - usually standardly.  
+In case of special IGPU, IMEI and HDEF device locations, [gfxutil](https://github.com/devicemanager/gfxutil) may be used: `gfxutil -f IGPU`, `gfxutil -f IMEI`, `gfxutil -f HDEF`. IGPU and IMEI device locations - usually standardly.  
   
 ## Discussion
 

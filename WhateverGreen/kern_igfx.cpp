@@ -1037,7 +1037,7 @@ bool IGFX::applyDevelopmentPatches(IOService *that) {
 	// On 10.12 it is not necessary.
 	// On 10.15 an option is differently named but still there.
 	// There are some laptops that support Apple firmware, for them we want it to be loaded explicitly.
-	// REF: https://github.com/acidanthera/bugtracker/issues/748
+	// REF: https://github.com/devicemanager/bugtracker/issues/748
 	if (callbackIGFX->fwLoadMode != FW_APPLE) {
 		// 1 - Automatic scheduler (Apple -> fallback to disabled)
 		// 2 - Force disable via plist (removed as of 10.15)
@@ -1128,7 +1128,7 @@ bool IGFX::applySklAsKblPatches(IOService *that) {
 
 	// NOTE: The patches/overriding above may not be sufficient.
 	//       `AAPL,GfxYTile` with value `01` may be injected for the glitch fix.
-	// Ref: https://github.com/acidanthera/bugtracker/issues/2088#issuecomment-1381357651
+	// Ref: https://github.com/devicemanager/bugtracker/issues/2088#issuecomment-1381357651
 
 	return found;
 }

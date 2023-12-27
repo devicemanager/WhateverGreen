@@ -37,7 +37,7 @@ AppleGraphicsDisplayPolicy.kext contains a check against its Info.plist and dete
 Maxwell GPUs (normally 9xx and some 7xx) no longer supply a correct IOVARendererID to enable hardware video decoder. See more details: [here](https://github.com/vit9696/Shiki/issues/5). You no longer need any changes (e.g. iMac.kext) but WhateverGreen. This fix was added in 1.2.0 branch. Can be switched off by using boot-arg "-ngfxnovarenderer".
 
 - _What patches do processors newer than Haswell need?_  
-Apple limits hardware video decoder with NVIDIA to only Haswell and earlier. To get hardware accelerated video decoding you need to patch AppleGVA.framework. To do so you could use [WhateverGreen](https://github.com/acidanthera/WhateverGreen) with `shikigva=4` boot argument. On 10.13 you may currently use a temporary workaround that enables hardware video decoding only for a subset of processes via `shikigva=12` boot argument. Starting with macOS 10.13.4 the problem is gone.
+Apple limits hardware video decoder with NVIDIA to only Haswell and earlier. To get hardware accelerated video decoding you need to patch AppleGVA.framework. To do so you could use [WhateverGreen](https://github.com/devicemanager/WhateverGreen) with `shikigva=4` boot argument. On 10.13 you may currently use a temporary workaround that enables hardware video decoding only for a subset of processes via `shikigva=12` boot argument. Starting with macOS 10.13.4 the problem is gone.
 
 - _What patches do Pascal GPUs need on 10.12?_  
 On 10.12 and possibly on 10.13 Pascal GPUs need a team id unlock to avoid glitches like empty transparent windows and so on. This patch is already present in WhateverGreen, and the use of any other kext (e.g. NVWebDriverLibValFix.kext) is not needed.

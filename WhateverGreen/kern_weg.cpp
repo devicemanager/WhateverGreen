@@ -637,7 +637,7 @@ bool WEG::isGraphicsPolicyModRequired(DeviceInfo *info) {
 	}
 
 	// Graphics policy patches do harm on Apple MacBooks, see:
-	// https://github.com/acidanthera/bugtracker/issues/260
+	// https://github.com/devicemanager/bugtracker/issues/260
 	if (info->firmwareVendor == DeviceInfo::FirmwareVendor::Apple) {
 		DBGLOG("weg", "apple firmware");
 		return false;
